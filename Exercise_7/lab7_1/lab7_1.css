@@ -1,0 +1,51 @@
+h1 {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 50px;
+        color: #3f2051;
+        text-align: center;
+        font-weight: bolder;
+        text-decoration: none;
+        border-bottom: 1px solid #eaeaea;
+        padding: 20px;
+}
+
+/* .chart {
+        width: fit-content;
+        display: block;
+        margin: auto;
+        height: 100%;
+        padding: 2em;
+        border-radius: 3px;
+        background-color: #eeeaea;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+} */
+
+.line {
+        fill: none;
+        stroke: rgb(70, 79, 88);
+        stroke-width: 1.0;
+}
+
+.area {
+        fill: slategray;
+        stroke: none;
+        stroke-width: 1.0;
+}
+
+.halfMilMark {
+        fill: none;
+        stroke: red;
+        stroke-width: 1.0;
+}
+
+.halfMilLabel {
+        fill: red;
+        stroke-width: 1.0;
+}
+
+footer {
+        margin-top: 20px;
+        color: white;
+        background-color: rgb(170, 145, 197);
+        text-align: center;
+}
