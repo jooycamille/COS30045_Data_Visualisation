@@ -128,10 +128,6 @@ function init() {
       .attr("y", function (d, i) {
         return yScale(d);
       })
-      // .attr("width", xScale.bandwidth())
-      // .attr("height", function (d, i) {
-      //   return height - margin - yScale(d);
-      // })
       .merge(bars)
       .transition()
       // .delay(500)
