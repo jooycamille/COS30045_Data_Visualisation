@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Data Visualitsation"/>
+        <meta name="keywords" content="HTML, CSS, D3"/>
+        <meta name="author" content="Joy Mena"/>
+
+        <title>Task 2.3 D3 Drawing with Data - Scatter Plot</title>
+
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+        <link rel="stylesheet" href="lab2_3.css">
+    </head>
+    <body>
+        <h1>The D3 Journey starts here...</h1>
+
+        <p class="scatterPlot"></p>
+
+        <script>
+            var w = 550;
+            var h = 100;
+            var padding = 20;
+
+            var dataset = [
+                [5, 20],
+                [480, 90],
+                [250, 50],
+                [100, 33],
+                [330, 95],
+                [410, 12],
+                [475, 44],
+                [25, 67],
+                [85, 21],
+                [220, 88]
+            ];
+
+            //create SVG element
+            var svg = d3.select(".scatterPlot")
+            .append("svg")
+            .attr("width", w )
+            .attr("height", h);
+            
+            function colorPicker(v) {
+            if (v < 480) {
+                return "slategrey";
+            } else if (v >= 480) {
+                return "red";
+            }
+            }
+
+            svg.selectAll("circle")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function(d) {
+                 return d[0];
+            })
+            .attr("cy", function(d){
+                return d[1];
+            })
+            .attr("r", 2)
+            .attr("fill", function(d){
+                return colorPicker(d[0]);
+            });
+
+            //Labels
+            svg.selectAll("text")
+            .data(dataset)
+            .enter()
+            .append("text")
+            .text(function(d) {
+                return d[0] + "," + d[1]; //text display
+            })
+            .attr("x", function(d) {
+                return d[0];
+            })
+            .attr("y", function(d) {
+                return d[1];
+            })
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px")
+            .attr("fill", "red")
+            .attr("margin", "2px");
+        </script>
+        <br>
+        <br>
+        <footer>COS30045 Data Visualitsation <br> Joy Mena</footer>
+    </body>
+</html>

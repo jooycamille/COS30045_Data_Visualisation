@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description"	content="Data Visualisation Exercise 1"/>
+	<meta name="keywords"		  content="HTML, CSS"/>
+	<meta name="author"			  content="Joy Mena"/>
+
+	<title>Task 1.1 and 1.2 HTML and CSS Demo Page</title>
+
+	<link rel="stylesheet" href="lab1_1.css">
+
+</head>
+
+<body>
+
+	<h1>Pets and the Pandemic</h1>
+	<h2>Author of Interesting Article</h2>
+    
+    <p>
+        A report form <b>Animal Medicines Australia (AMA)</b> has found that many Australians took the opportunity to introduce a pet into their household during the pandemic. Their survey indicated that there was a significant increase in the percent of households taking in a new dog, fish or bird. 
+        <figure class="petPhotos">
+            <img class="pet" src="cat.jpg" alt="cat">
+            <img class="pet" src="dog.png" alt="dog">
+            <img class="pet" src="fish.jpg" alt="fish">
+        </figure>
+        Their research also indicated that pets had a number of positive influence on their lives such as:
+        <ul>
+            <li>companionship</li>
+            <li>better mental health</li>
+            <li>joy and happiness.</li>
+        </ul>
+    </p>
+    <figure class="table">
+        <img src="pet_ownership_in_australia_table.png" alt="Pet Ownership in Australiia, 2019 vs 2021 data table">
+        <figcaption>Comparison of Pet Ownership in 2019 and 2021. Data Source: <a href="https://animalmedicinesaustralia.org.au/wp-content/uploads/2021/08/AMAU005-PATP-Report21_v1.41_WEB.pdf">Animal Medicines Australia Report</a></figcaption>
+    </figure>
+
+    <br><br>
+
+    <button onclick=button1(); class="btn">2019</button>
+    <button onclick=button2(); class="btn">2021</button>
+    <button onclick=button3(); class="btn">Both</button>
+    
+    <figure class="table">
+        <img id="chart" src="pets2019.png" alt="Most popular pets owned by Australians in 2019">
+        <figcaption id="chartCaption">Most popular pets owned by Australians in 2019</figcaption>
+    </figure>
+    
+    <p>
+        With the influence in pet ownership the <i>AMA</i> are encouraging policy makers to consider the needs of companion animals and their owners when considering rental, strata and body corporate regulations as well as accepting animals in public places and transport.
+    </p>
+
+	<footer>COS30045 Data Visualisation <br>Semester 1 2023</footer>
+    
+    <script src="lab1_2.js"></script>
+</body>
+</html>
