@@ -11,7 +11,7 @@ function init() {
     .attr("height", h)
     .attr("fill", "grey");
 
-  //set the colour range
+  //STEP 1: set the colour range
   var color = d3
     .scaleQuantize()
     .range([
@@ -32,7 +32,7 @@ function init() {
   //define path generator
   var path = d3.geoPath().projection(projection);
 
-  //load in the data
+  //STEP 2: load in the dataand map colour domain
   d3.csv(
     "../COS30045 8.1 and 8.2 Resources/VIC_LGA_unemployment.csv",
     function (data) {
@@ -43,6 +43,7 @@ function init() {
       console.log("it works"); //to check if it's reading the data file
       // ################################# DELETE CODE ABOVE ##########################################################
 
+      //map colour domain
       color.domain([
         d3.min(data, function (d) {
           return d.unemployed;
@@ -58,7 +59,32 @@ function init() {
           console.log("it works");
           //merge the data and GeoJSON
 
-          //loop through once foe each data value
+          //STEP 5: Add Victorian towns and cities
+          d3.csv(
+            "../COS30045 8.1 and 8.2 Resources/VIC_city.csv",
+            function (data) {
+              //create a new circle element for each city
+
+              svg
+                .selectAll("circle")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("cx", function (d) {
+                  return projection([d.lon, d.lat])[0];
+                })
+                .attr("cy", function (d) {
+                  return projection([d.lon, d.lat])[1];
+                })
+                .attr("r", 5)
+                .style("fill", "yellow")
+                .style("stroke", "gray")
+                .style("stroke-width", 0.25)
+                .style("opacity", 0.75);
+            }
+          );
+
+          //loop through once for each data value
           for (var i = 0; i < data.length; i++) {
             //grab LGS name
             var dataLga = data[i].lga;
