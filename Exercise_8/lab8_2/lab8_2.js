@@ -33,8 +33,7 @@ function init() {
   var path = d3.geoPath().projection(projection);
 
   //STEP 2: load in the dataand map colour domain
-  d3.csv(
-    "../COS30045 8.1 and 8.2 Resources/VIC_LGA_unemployment.csv",
+  d3.csv("../dataFiles/VIC_LGA_unemployment.csv").then(
     function (data) {
       if (data == null) {
         d3.select("#chart").append("p").text("Data failed to load");
@@ -54,14 +53,14 @@ function init() {
       ]);
       //load in GeoJSON data
       d3.json(
-        "../COS30045 8.1 and 8.2 Resources/LGA_VIC.json",
+        "../dataFiles/LGA_VIC.json",
         function (json) {
           console.log("it works");
           //merge the data and GeoJSON
 
           //STEP 5: Add Victorian towns and cities
           d3.csv(
-            "../COS30045 8.1 and 8.2 Resources/VIC_city.csv",
+            "../dataFiles/VIC_city.csv",
             function (data) {
               //create a new circle element for each city
 

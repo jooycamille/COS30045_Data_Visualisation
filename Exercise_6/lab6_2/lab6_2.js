@@ -182,7 +182,7 @@ function init() {
     var bars = svg.selectAll("rect").data(dataset);
 
     //exit...
-    bars.exit().transition().duration(500).attr("x", width).remove();
+    bars.exit().transition().duration(500).attr("x", width).remove(); //to remove from the last element use .pop();
 
     //enter...
     bars

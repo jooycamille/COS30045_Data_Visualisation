@@ -48,9 +48,9 @@ function init() {
     })
     .attr("fill", "#956da1")
     .append("title");
-    // .text(function (d) {
-    //   return "This value is " + d;
-    // });
+  // .text(function (d) {
+  //   return "This value is " + d;
+  // });
 
   var mouseMovements = function () {
     svg

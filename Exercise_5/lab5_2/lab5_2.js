@@ -120,7 +120,7 @@ function init() {
       .selectAll("rect")
       .data(dataset)
       .transition()
-      .delay(function(d, i) {
+      .delay(function (d, i) {
         return i * 100;
       })
       .duration(500)
@@ -152,8 +152,8 @@ function init() {
       .selectAll("rect")
       .data(dataset)
       .transition()
-      .delay(function(d, i) {
-        return i / dataset.length * 1000;
+      .delay(function (d, i) {
+        return (i / dataset.length) * 1000;
       })
       .duration(1000)
       .ease(d3.easeElasticOut)

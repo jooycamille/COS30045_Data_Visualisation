@@ -21,7 +21,7 @@ function init() {
     .attr("fill", "grey");
 
   //load in GeoJSON data
-  d3.json("../COS30045 8.1 and 8.2 Resources/LGA_VIC.json").then(function (
+  d3.json("../dataFiles/LGA_VIC.json").then(function (
     json
   ) {
     //bind data and create one path per GeoJSON feature
