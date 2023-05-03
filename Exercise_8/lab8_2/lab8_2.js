@@ -1,13 +1,19 @@
 function init() {
   //width and height
-  var w = 500;
-  var h = 300;
+  var w = 1000;
+  var h = 500;
 
   var projection = d3
     .geoMercator()
     .center([145, -36.5])
     .translate([w / 2, h / 2])
-    .scale(2450);
+    .scale(5000);
+
+  //define path generator
+  var path = d3.geoPath().projection(projection);
+
+  //create SVG element
+  var svg = d3.select("#map").append("svg").attr("width", w).attr("height", h);
 
   var color = d3
     .scaleQuantize()
@@ -16,49 +22,46 @@ function init() {
       "rgb(203,201,226)",
       "rgb(158,154,200)",
       "rgb(117,107,177)",
-      "rgb(84,39,143)",
+      "rgb(84,39,143)"
     ]);
 
-  //define path generator
-  var path = d3.geoPath().projection(projection);
-
-  //create SVG element
-  var svg = d3
-    .select("#map")
-    .append("svg")
-    .attr("width", w)
-    .attr("height", h)
-    .attr("fill", "grey");
-
-  //load in GeoJSON data
+  //load in the CSV data
   d3.csv("../dataFiles/VIC_LGA_unemployment.csv").then(function (data) {
     console.log(data);
+    color.domain([
+      d3.min(data, function (d) {
+        return d.value;
+      }),
+      d3.max(data, function (d) {
+        return d.value;
+      }),
+    ]);
 
+    //load in GeoJSON data
     d3.json("../dataFiles/LGA_VIC.json").then(function (json) {
-      //loop through each LGA in the CSV data
+      console.log("json");
+      //merge the ag. data and GeoJSON
+      //loop through once for each ag. data value
       for (var i = 0; i < data.length; i++) {
-        var lgaName = data[i].lga;
-        var unemployment = parseFloat(data[i].unemployed);
+        //grab LGA name
+        var dataLGA = data[i].LGA;
 
-        //find the correspinding LGAnin the JSON data
-        for (var j = 0; j < json.features.length; i++) {
-          var jsonLgaName = json.features[j].properties.lga;
-          if (lgaName === jsonLgaName) {
-            //copy the unemployment data into the JSON data
-            json.features[j].properties.unemployed = unemployment;
+        //grab unemployment data value, and convert from string to float
+        var DataUnemployed = parseFloat(data[i].unemployed);
+
+        //find the corresponding LGA inside the GeoJSON
+        for (var j = 0; j < json.features.length; j++) {
+          var jsonLGA = json.features[j].properties.LGA_name;
+
+          if (dataLGA == jsonLGA) {
+            //copy the data value into the JSON
+            json.features[j].properties.value = DataUnemployed;
+
+            //stop looking through JSON
             break;
           }
         }
       }
-
-      color.domain([
-        d3.min(data, function (d) {
-          return d.unemployed;
-        }),
-        d3.max(data, function (d) {
-          return d.unemployed;
-        }),
-      ]);
 
       //bind data and create one path per GeoJSON feature
       svg
@@ -68,39 +71,42 @@ function init() {
         .append("path")
         .attr("d", path)
         .style("fill", function (d) {
-          var unemployment = d.properties.unemployed;
+          //get data value
+          var value = d.properties.value;
 
-          if (unemployment) {
-            return color(unemployment);
+          if (value) {
+            //if value exists
+            return color(value);
           } else {
+            //if value is undefined...
             return "#ccc";
           }
-        })
-        .attr("d", path);
+        });
 
-      //load the city data and create circles for each city
-      d3.csv(
-        "../dataFiles/VIC_city.csv".then(function (cityData) {
-          console.log(cityData);
+      d3.csv("../dataFiles/VIC_city.csv").then(function (data) {
+        console.log(data);
 
-          svg
-            .selectAll("circle")
-            .data(cityData)
-            .enter()
-            .append("circle")
-            .attr("cx", function (d) {
-              return projection([d.lon, d.lat])[0];
-            })
-            .attr("cy", function (d) {
-              return projection([d.lon, d.lat])[1];
-            })
-            .attr("r", 3)
-            .style("fill", "red")
-            .style("stroke", "gray")
-            .style("stroke-width", 0.25)
-            .style("opacity", 0.75);
-        })
-      );
+        svg
+          .selectAll("circle")
+          .data(data)
+          .enter()
+          .append("circle")
+          .attr("cx", function (d) {
+            return projection([d.lon, d.lat])[0];
+          })
+          .attr("cy", function (d) {
+            return projection([d.lon, d.lat])[1];
+          })
+          .attr("r", 5)
+          .style("fill", "yellow")
+          .style("stroke", "gray")
+          .style("stroke-width", 0.25)
+          .style("opacity", 0.75)
+          .append("title")
+          .text(function (d) {
+            return d.place;
+          });
+      });
     });
   });
 }
