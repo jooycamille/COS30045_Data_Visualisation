@@ -39,7 +39,7 @@ function init() {
 
     //load in GeoJSON data
     d3.json("../dataFiles/LGA_VIC.json").then(function (json) {
-      console.log("json");
+      console.log(json);
       //merge the ag. data and GeoJSON
       //loop through once for each ag. data value
       for (var i = 0; i < data.length; i++) {

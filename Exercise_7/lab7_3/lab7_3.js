@@ -56,7 +56,7 @@ function init() {
       return color(i);
     });
 
-  //add a rect for each data vaue
+  //add a rect for each data value
   var rects = groups
     .selectAll("rect")
     .data(function (d) {
